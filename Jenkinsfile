@@ -18,12 +18,10 @@ pipeline {
             input message: "Deploy?"
          }
          post {
-            success {
 	      steps {
 		sshPublisher(publishers: [sshPublisherDesc(configName: 'ansible', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''cd /home/ansadmin/docker;''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '/docker', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '**'), 
 		sshTransfer(cleanRemote: false, excludes: '', execCommand: '''cd /home/ansadmin/docker; echo "I did it" > /home/ansadmin/docker/ididit.txt; echo "I did it again" > /home/ansadmin/docker/ididitagain.txt; ''', flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '', usePty: true)], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
               }
-            }
             aborted {
                echo "Dev Deploy Denied"
             }
