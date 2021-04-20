@@ -66,7 +66,7 @@ pipeline {
          }
          steps {
             echo "Deploying to ${ENVIRONMENT}"
-            echo "Test for stg env only successfull."
+            echo "Test for stg env only successfull.."
          }
       }
    }
