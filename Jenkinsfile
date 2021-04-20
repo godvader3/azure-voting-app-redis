@@ -7,9 +7,9 @@ pipeline {
             echo "$GIT_BRANCH"
          }
       }
-      stage('Approve Dev Deploy') {
+      stage('Approve Dev or Stg Deploy') {
          when {
-            branch 'dev'
+            branch 'dev' || 'stg'
          }
          options {
             timeout(time: 1, unit: 'HOURS')
@@ -26,16 +26,12 @@ pipeline {
             }
          }
       }
-      stage('Deploy to Dev') {
+      stage('Deploy to Dev or Stg') {
          when {
-            branch 'dev'
-         }
-         environment {
-            ENVIRONMENT = 'dev'
+            branch 'dev' || 'stg'
          }
          steps {
-            echo "Deploying to ${ENVIRONMENT}"
-            echo "Test for dev env only successfull."
+            echo "Test for dev or stg env only successfull."
          }
       }
    }
