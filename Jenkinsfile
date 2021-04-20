@@ -7,12 +7,16 @@ pipeline {
             echo "$GIT_BRANCH"
          }
       }
-
+    stages {
       stage('Docker Build') {
          steps {
-	    sh label: '', script: '''cd azure-vote/
-			ls -l
-			echo lapar'''
+            sh label: '', script: '''docker images -a
+                        cd azure-vote/
+                        docker images -a
+                        docker build -t jenkins-pipeline .
+                        docker images -a
+                        cd ..
+                        '''
          }
       }  
    }
