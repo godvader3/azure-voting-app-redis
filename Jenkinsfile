@@ -17,6 +17,7 @@ pipeline {
                         cd ..
                         '''
             }
+      }
       stage('Start test app') {
         steps {
             sh label: '', script: """
