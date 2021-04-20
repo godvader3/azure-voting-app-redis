@@ -22,8 +22,7 @@ pipeline {
             sh label: '', script: """
             docker-compose up -d
             ./scripts/test_container.sh
-        """)
-         }
+        """}
          post {
             success {
                echo "App started successfully :)"
@@ -37,14 +36,14 @@ pipeline {
          steps {
             sh label: '', script: """
                pytest ./tests/test_sample.py
-            """)
+            """
          }
       }
       stage('Stop test app') {
          steps {
             sh label: '', script: """
                docker-compose down
-            """)
+            """
          }
       }     
    }
