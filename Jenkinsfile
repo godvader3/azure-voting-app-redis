@@ -46,7 +46,7 @@ pipeline {
 	       sshTransfer(cleanRemote: false, excludes: '', execCommand: '''cd /home/ansadmin/docker; echo "I did it" > /home/ansadmin/docker/ididit-stg.txt; echo "I did it again" > /home/ansadmin/docker/ididitagain-stg.txt; ''', flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '', usePty: true)], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
             }
             aborted {
-               echo "Stg Deploy Denied"
+               echo "Stg Deploy Denied!"
             }
          }
       }
