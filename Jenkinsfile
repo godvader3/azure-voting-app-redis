@@ -38,6 +38,36 @@ pipeline {
             echo "Test for dev env only successfull."
          }
       }
+      stage('Approve Stg Deploy') {
+         when {
+            branch 'stg'
+         }
+         options {
+            timeout(time: 1, unit: 'HOURS')
+         }
+         steps {
+            input message: "Deploy?"
+         }
+         post {
+            success {
+               echo "Stg Deploy Approved"
+            }
+            aborted {
+               echo "Stg Deploy Denied"
+            }
+         }
+      }
+      stage('Deploy to Stg') {
+         when {
+            branch 'stg'
+         }
+         environment {
+            ENVIRONMENT = 'stg'
+         }
+         steps {
+            echo "Deploying to ${ENVIRONMENT}"
+            echo "Test for stg env only successfull."
+         }
+      }
    }
 }
-
