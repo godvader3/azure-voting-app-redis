@@ -9,7 +9,7 @@ pipeline {
       }
       stage('Approve Dev Deploy') {
          when {
-            branch 'dev'
+            branch 'stg'
          }
          options {
             timeout(time: 1, unit: 'HOURS')
@@ -26,16 +26,16 @@ pipeline {
             }
          }
       }
-      stage('Deploy to Dev') {
+      stage('Deploy to Stg') {
          when {
-            branch 'dev'
+            branch 'stg'
          }
          environment {
-            ENVIRONMENT = 'dev'
+            ENVIRONMENT = 'stg'
          }
          steps {
             echo "Deploying to ${ENVIRONMENT}"
-            echo "Test for dev env only successfull."
+            echo "Test for stg env only successfull."
          }
       }
    }
