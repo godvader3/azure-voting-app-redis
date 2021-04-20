@@ -7,46 +7,37 @@ pipeline {
             echo "$GIT_BRANCH"
          }
       }
-      stage('Docker Build') {
+      stage('Approve Dev Deploy') {
+         when {
+            branch 'dev'
+         }
+         options {
+            timeout(time: 1, unit: 'HOURS')
+         }
          steps {
-            sh label: '', script: '''docker images -a
-                        cd azure-vote/
-                        docker images -a
-                        docker build -t jenkins-pipeline .
-                        docker images -a
-                        cd ..
-                        '''
-            }
-      }
-      stage('Start test app') {
-        steps {
-            sh label: '', script: """
-            docker-compose up -d
-            ./scripts/test_container.sh
-        """}
+            input message: "Deploy?"
+         }
          post {
             success {
-               echo "App started successfully :)"
+               echo "Dev Deploy Approved"
             }
-            failure {
-               echo "App failed to start :("
+            aborted {
+               echo "Dev Deploy Denied"
             }
          }
       }
-      stage('Run Tests') {
+      stage('Deploy to Dev') {
+         when {
+            branch 'dev'
+         }
+         environment {
+            ENVIRONMENT = 'dev'
+         }
          steps {
-            sh label: '', script: """
-               pytest ./tests/test_sample.py
-            """
+            echo "Deploying to ${ENVIRONMENT}"
+            echo "Test for dev env only successfull."
          }
       }
-      stage('Stop test app') {
-         steps {
-            sh label: '', script: """
-               docker-compose down
-            """
-         }
-      }     
    }
 }
 
