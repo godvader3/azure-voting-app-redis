@@ -38,7 +38,6 @@ pipeline {
             echo "Test for dev env only successfull."
          }
       }
-
       stage('Approve Stg Deploy') {
          when {
             branch 'stg'
@@ -72,4 +71,3 @@ pipeline {
       }
    }
 }
-
